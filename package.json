@@ -1,0 +1,31 @@
+{
+  "name": "stickerwa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@adiwajshing/baileys": "npm:baileys@^6.0.7",
+    "@adiwajshing/keyed-db": "^0.2.4",
+    "@hapi/boom": "^10.0.1",
+    "express": "^4.18.2",
+    "pino": "^8.14.1",
+    "qrcode-terminal": "^0.12.0",
+    "wa-sticker-formatter": "^4.4.4"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theazran/StickerWA.git"
+  },
+  "bugs": {
+    "url": "https://github.com/theazran/StickerWA/issues"
+  },
+  "homepage": "https://github.com/theazran/StickerWA#readme",
+  "description": ""
+}
