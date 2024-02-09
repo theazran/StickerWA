@@ -4,7 +4,7 @@ const {
   DisconnectReason,
   downloadContentFromMessage,
   delay,
-} = require("@adiwajshing/baileys");
+} = require("@whiskeysockets/baileys");
 const logger = require("pino")({ level: "silent" });
 const { Boom } = require("@hapi/boom");
 const { Sticker, StickerTypes, extractMetadata } = require('wa-sticker-formatter');
@@ -17,9 +17,6 @@ app.get('/', (req, res) => {
   res.send('BOT RUNNING! BOT by @theazran_ ')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
 
 async function run() {
   const { state, saveCreds } = await useMultiFileAuthState("sessions");
@@ -96,18 +93,44 @@ async function run() {
         }
         return buffer
       }
-      
+
+      if (body == 'tes') {
+        await client.sendMessage(from, { text: 'halo' })
+      }
+
       if (isMedia) {
         const message = isQuotedImage ? m.quoted : m.message.imageMessage
         const buff = await client.downloadMediaMessage(message)
         const data = new Sticker(buff, { pack: 'Follow', author: '@theazran_', type: StickerTypes.FULL, quality: 50, id: 'null' })
         await client.sendMessage(from, await data.toMessage(), { quoted: m })
       }
+
+      // Endpoint untuk mengirim pesan
+      app.get('/sendMessage', async (req, res) => {
+        try {
+          const from = req.query.from;
+          const text = req.query.text;
+
+          // Mengganti kode ini dengan logika pengiriman pesan sesuai dengan library/layanan yang digunakan
+          const response = await client.sendMessage(from, { text });
+
+          console.log('Pesan berhasil dikirim:', response);
+          res.status(200).json({ message: 'Pesan berhasil dikirim' });
+        } catch (error) {
+          console.error('Terjadi kesalahan saat mengirim pesan:', error);
+          res.status(500).json({ error: 'Terjadi kesalahan saat mengirim pesan' });
+        }
+      });
+
+      app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`)
+      })
     } catch (error) {
       console.log(error);
     }
   });
 }
+
 
 // running bot
 try {
